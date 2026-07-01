@@ -100,11 +100,15 @@ export default function SpendingPage() {
           }),
         })
 
-        if (res.ok) {
-          toast.success("Spending updated")
-          fetchSpendings()
-          handleCloseDialog()
+        if (!res.ok) {
+          const error = await res.json()
+          toast.error(error.error || "Failed to update spending")
+          return
         }
+
+        toast.success("Spending updated")
+        fetchSpendings()
+        handleCloseDialog()
       } else {
         const res = await fetch("/api/spending", {
           method: "POST",
@@ -115,13 +119,18 @@ export default function SpendingPage() {
           }),
         })
 
-        if (res.ok) {
-          toast.success("Spending added")
-          fetchSpendings()
-          handleCloseDialog()
+        if (!res.ok) {
+          const error = await res.json()
+          toast.error(error.error || "Failed to add spending")
+          return
         }
+
+        toast.success("Spending added")
+        fetchSpendings()
+        handleCloseDialog()
       }
-    } catch {
+    } catch (err) {
+      console.error("Spending save error:", err)
       toast.error("Failed to save spending")
     }
   }
