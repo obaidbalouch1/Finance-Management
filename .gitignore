@@ -48,3 +48,6 @@ next-env.d.ts
 # Claude Code local session files
 .claude/settings.local.json
 .claude/scheduled_tasks.lock
+
+# Local-only notes containing real secrets
+VERCEL_ENV_VARIABLES.txt
