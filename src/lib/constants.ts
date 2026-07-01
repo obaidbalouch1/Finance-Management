@@ -14,6 +14,7 @@ import {
   Users,
   ShieldCheck,
   Activity,
+  Receipt,
   type LucideIcon,
 } from "lucide-react"
 
@@ -25,6 +26,7 @@ export type NavItem = {
 
 export const NAV_ITEMS: NavItem[] = [
   { title: "Overview", href: "/dashboard", icon: LayoutDashboard },
+  { title: "Simple Spending", href: "/spending", icon: Receipt },
   { title: "Transactions", href: "/transactions", icon: ArrowLeftRight },
   { title: "Accounts", href: "/accounts", icon: Wallet },
   { title: "Categories", href: "/categories", icon: Tags },

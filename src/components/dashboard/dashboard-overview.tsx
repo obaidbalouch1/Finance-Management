@@ -18,6 +18,7 @@ import { CashFlowChart } from "@/components/dashboard/cash-flow-chart"
 import { FinancialHealthCard } from "@/components/dashboard/financial-health-card"
 import { BudgetsOverview } from "@/components/dashboard/budgets-overview"
 import { RecentTransactions } from "@/components/dashboard/recent-transactions"
+import { QuickAddExpense } from "@/components/dashboard/quick-add-expense"
 import { Skeleton } from "@/components/ui/skeleton"
 
 export function DashboardOverview({ currency }: { currency: string }) {
@@ -45,6 +46,8 @@ export function DashboardOverview({ currency }: { currency: string }) {
 
   return (
     <div className="space-y-6">
+      <QuickAddExpense />
+
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         <StatCard
           label="Total balance"

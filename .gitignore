@@ -51,3 +51,6 @@ next-env.d.ts
 
 # Local-only notes containing real secrets
 VERCEL_ENV_VARIABLES.txt
+
+.vercel
+.env*
