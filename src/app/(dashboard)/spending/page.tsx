@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react"
 import { Plus, Trash2, Edit, Calendar, DollarSign } from "lucide-react"
+import { toast } from "sonner"
 import { Button } from "@/components/ui/button"
 import {
   Card,
@@ -27,7 +28,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
-import { useToast } from "@/hooks/use-toast"
 import { CURRENCIES } from "@/lib/constants"
 
 type Spending = {
@@ -41,7 +41,6 @@ type Spending = {
 }
 
 export default function SpendingPage() {
-  const { toast } = useToast()
   const [spendings, setSpendings] = useState<Spending[]>([])
   const [total, setTotal] = useState(0)
   const [loading, setLoading] = useState(true)
@@ -71,11 +70,7 @@ export default function SpendingPage() {
         setTotal(data.total)
       }
     } catch (error) {
-      toast({
-        title: "Error",
-        description: "Failed to fetch spendings",
-        variant: "destructive",
-      })
+      toast.error("Failed to fetch spendings")
     } finally {
       setLoading(false)
     }
@@ -89,11 +84,7 @@ export default function SpendingPage() {
     e.preventDefault()
 
     if (!formData.description || !formData.amount) {
-      toast({
-        title: "Error",
-        description: "Please fill in all fields",
-        variant: "destructive",
-      })
+      toast.error("Please fill in all fields")
       return
     }
 
@@ -109,7 +100,7 @@ export default function SpendingPage() {
         })
 
         if (res.ok) {
-          toast({ title: "Success", description: "Spending updated" })
+          toast.success("Spending updated")
           fetchSpendings()
           handleCloseDialog()
         }
@@ -124,17 +115,13 @@ export default function SpendingPage() {
         })
 
         if (res.ok) {
-          toast({ title: "Success", description: "Spending added" })
+          toast.success("Spending added")
           fetchSpendings()
           handleCloseDialog()
         }
       }
     } catch (error) {
-      toast({
-        title: "Error",
-        description: "Failed to save spending",
-        variant: "destructive",
-      })
+      toast.error("Failed to save spending")
     }
   }
 
@@ -144,15 +131,11 @@ export default function SpendingPage() {
     try {
       const res = await fetch(`/api/spending/${id}`, { method: "DELETE" })
       if (res.ok) {
-        toast({ title: "Success", description: "Spending deleted" })
+        toast.success("Spending deleted")
         fetchSpendings()
       }
     } catch (error) {
-      toast({
-        title: "Error",
-        description: "Failed to delete spending",
-        variant: "destructive",
-      })
+      toast.error("Failed to delete spending")
     }
   }
 
