@@ -197,7 +197,7 @@ export default function SpendingPage() {
       <div className="flex gap-4">
         <Select
           value={selectedMonth.toString()}
-          onValueChange={(v) => setSelectedMonth(parseInt(v))}
+          onValueChange={(v) => setSelectedMonth(parseInt(v || "1", 10))}
         >
           <SelectTrigger className="w-[180px]">
             <SelectValue />
@@ -213,7 +213,7 @@ export default function SpendingPage() {
 
         <Select
           value={selectedYear.toString()}
-          onValueChange={(v) => setSelectedYear(parseInt(v))}
+          onValueChange={(v) => setSelectedYear(parseInt(v || String(now.getFullYear()), 10))}
         >
           <SelectTrigger className="w-[120px]">
             <SelectValue />
