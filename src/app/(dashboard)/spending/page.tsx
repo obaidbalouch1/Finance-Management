@@ -345,7 +345,7 @@ export default function SpendingPage() {
                 <Select
                   value={formData.currency}
                   onValueChange={(value) =>
-                    setFormData({ ...formData, currency: value })
+                    setFormData({ ...formData, currency: value || "USD" })
                   }
                 >
                   <SelectTrigger>
