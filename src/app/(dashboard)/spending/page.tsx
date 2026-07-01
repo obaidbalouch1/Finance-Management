@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { Plus, Trash2, Edit, Calendar, DollarSign } from "lucide-react"
+import { Plus, Trash2, Edit, Calendar } from "lucide-react"
 import { toast } from "sonner"
 import { Button } from "@/components/ui/button"
 import {
@@ -69,7 +69,7 @@ export default function SpendingPage() {
         setSpendings(data.spendings)
         setTotal(data.total)
       }
-    } catch (error) {
+    } catch {
       toast.error("Failed to fetch spendings")
     } finally {
       setLoading(false)
@@ -78,6 +78,7 @@ export default function SpendingPage() {
 
   useEffect(() => {
     fetchSpendings()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedMonth, selectedYear])
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -120,7 +121,7 @@ export default function SpendingPage() {
           handleCloseDialog()
         }
       }
-    } catch (error) {
+    } catch {
       toast.error("Failed to save spending")
     }
   }
@@ -134,7 +135,7 @@ export default function SpendingPage() {
         toast.success("Spending deleted")
         fetchSpendings()
       }
-    } catch (error) {
+    } catch {
       toast.error("Failed to delete spending")
     }
   }

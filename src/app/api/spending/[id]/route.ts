@@ -32,7 +32,7 @@ export async function PATCH(
     const body = await request.json()
     const data = spendingSchema.parse(body)
 
-    const updateData: any = {}
+    const updateData: Record<string, unknown> = {}
     if (data.description) updateData.description = data.description
     if (data.amount) updateData.amount = data.amount
     if (data.currency) updateData.currency = data.currency
