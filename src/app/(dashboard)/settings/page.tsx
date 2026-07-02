@@ -5,6 +5,7 @@ import { db } from "@/lib/db"
 import { PageHeader } from "@/components/dashboard/page-header"
 import { ProfileForm } from "@/components/settings/profile-form"
 import { ChangePasswordForm } from "@/components/settings/change-password-form"
+import { FontSizeControl } from "@/components/settings/font-size-control"
 import {
   Card,
   CardContent,
@@ -30,6 +31,18 @@ export default async function SettingsPage() {
         title="Settings"
         description="Manage your profile and account preferences"
       />
+
+      <Card>
+        <CardHeader>
+          <CardTitle>Appearance</CardTitle>
+          <CardDescription>
+            Adjust the text size to your comfort.
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <FontSizeControl />
+        </CardContent>
+      </Card>
 
       <Card>
         <CardHeader>

@@ -33,6 +33,14 @@ export default function RootLayout({
       suppressHydrationWarning
       className={`${geistSans.variable} ${geistMono.variable}`}
     >
+      <head>
+        {/* Apply the saved text-size preference before paint to avoid a flash. */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var s=Number(localStorage.getItem("app-font-scale"));if(s>=85&&s<=130){document.documentElement.style.setProperty("--font-scale",String(s/100));}}catch(e){}})();`,
+          }}
+        />
+      </head>
       <body className="antialiased">
         <Providers>{children}</Providers>
       </body>
