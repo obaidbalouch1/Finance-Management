@@ -2,7 +2,7 @@
 
 import Link from "next/link"
 import { signOut } from "next-auth/react"
-import { LogOut, Minus, Plus, Settings, User } from "lucide-react"
+import { LogOut, Settings, User } from "lucide-react"
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
@@ -14,12 +14,6 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import {
-  FONT_SCALE_MAX,
-  FONT_SCALE_MIN,
-  FONT_SCALE_STEP,
-  useFontScale,
-} from "@/hooks/use-font-scale"
 
 function getInitials(name?: string | null, email?: string | null) {
   if (name) {
@@ -31,39 +25,6 @@ function getInitials(name?: string | null, email?: string | null) {
       .toUpperCase()
   }
   return email?.slice(0, 2).toUpperCase() ?? "U"
-}
-
-function FontSizeMenuControl() {
-  const { percent, setScale } = useFontScale()
-
-  return (
-    <div className="flex items-center justify-between gap-2 px-2 py-1.5">
-      <span className="text-muted-foreground text-xs">Text size</span>
-      <div className="flex items-center gap-1">
-        <Button
-          type="button"
-          variant="outline"
-          size="icon-xs"
-          aria-label="Decrease text size"
-          disabled={percent <= FONT_SCALE_MIN}
-          onClick={() => setScale(percent - FONT_SCALE_STEP)}
-        >
-          <Minus />
-        </Button>
-        <span className="w-9 text-center text-xs tabular-nums">{percent}%</span>
-        <Button
-          type="button"
-          variant="outline"
-          size="icon-xs"
-          aria-label="Increase text size"
-          disabled={percent >= FONT_SCALE_MAX}
-          onClick={() => setScale(percent + FONT_SCALE_STEP)}
-        >
-          <Plus />
-        </Button>
-      </div>
-    </div>
-  )
 }
 
 export function UserMenu({
@@ -94,8 +55,6 @@ export function UserMenu({
             {user.email}
           </span>
         </DropdownMenuLabel>
-        <DropdownMenuSeparator />
-        <FontSizeMenuControl />
         <DropdownMenuSeparator />
         <DropdownMenuItem render={<Link href="/settings" />}>
           <User />

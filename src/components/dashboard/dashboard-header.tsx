@@ -1,6 +1,7 @@
 import { SidebarTrigger } from "@/components/ui/sidebar"
 import { Separator } from "@/components/ui/separator"
 import { ThemeToggle } from "@/components/theme-toggle"
+import { FontSizeToggle } from "@/components/dashboard/font-size-toggle"
 import { NotificationsBell } from "@/components/dashboard/notifications-bell"
 import { UserMenu } from "@/components/dashboard/user-menu"
 
@@ -15,6 +16,7 @@ export function DashboardHeader({
       <Separator orientation="vertical" className="mr-2 h-4" />
       <div className="ml-auto flex items-center gap-1">
         <NotificationsBell />
+        <FontSizeToggle />
         <ThemeToggle />
         <UserMenu user={user} />
       </div>
