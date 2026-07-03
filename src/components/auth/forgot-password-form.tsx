@@ -5,7 +5,7 @@ import Link from "next/link"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { toast } from "sonner"
-import { CheckCircle2, Loader2 } from "lucide-react"
+import { CheckCircle2, Loader2, Mail } from "lucide-react"
 
 import {
   forgotPasswordSchema,
@@ -56,7 +56,7 @@ export function ForgotPasswordForm() {
 
   if (submitted) {
     return (
-      <div className="space-y-4 text-center">
+      <div className="animate-scale-in space-y-4 text-center">
         <div className="mx-auto flex size-12 items-center justify-center rounded-full bg-success/10 text-success">
           <CheckCircle2 className="size-6" />
         </div>
@@ -95,12 +95,16 @@ export function ForgotPasswordForm() {
               <FormItem>
                 <FormLabel>Email</FormLabel>
                 <FormControl>
-                  <Input
-                    type="email"
-                    placeholder="you@example.com"
-                    autoComplete="email"
-                    {...field}
-                  />
+                  <div className="relative">
+                    <Mail className="text-muted-foreground pointer-events-none absolute top-1/2 left-3 size-4 -translate-y-1/2" />
+                    <Input
+                      type="email"
+                      placeholder="you@example.com"
+                      autoComplete="email"
+                      className="pl-9"
+                      {...field}
+                    />
+                  </div>
                 </FormControl>
                 <FormMessage />
               </FormItem>
