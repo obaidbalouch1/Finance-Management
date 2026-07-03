@@ -2,7 +2,7 @@
 
 import * as React from "react"
 import { toast } from "sonner"
-import { Plus, Pencil, Trash2, Lock } from "lucide-react"
+import { Plus, Pencil, Trash2, Lock, Shapes } from "lucide-react"
 import type { Category } from "@prisma/client"
 
 import { useCategories } from "@/hooks/use-categories"
@@ -12,6 +12,7 @@ import { Button } from "@/components/ui/button"
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs"
 import { CategoryFormDialog } from "@/components/categories/category-form-dialog"
 import { ConfirmDialog } from "@/components/confirm-dialog"
+import { EmptyState } from "@/components/empty-state"
 import { Skeleton } from "@/components/ui/skeleton"
 
 function CategoryGrid({
@@ -25,24 +26,26 @@ function CategoryGrid({
 }) {
   if (categories.length === 0) {
     return (
-      <div className="glass rounded-2xl p-10 text-center">
-        <p className="text-muted-foreground">No categories yet.</p>
-      </div>
+      <EmptyState
+        icon={Shapes}
+        title="No categories yet"
+        description="Categories help you organize transactions and see where your money goes."
+      />
     )
   }
 
   return (
-    <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+    <div className="stagger-children grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
       {categories.map((category) => {
         const Icon = getIcon(category.icon)
         return (
           <div
             key={category.id}
-            className="glass flex items-center justify-between rounded-xl p-3"
+            className="glass hover-lift group flex items-center justify-between rounded-xl p-3"
           >
             <div className="flex items-center gap-3">
               <span
-                className="flex size-9 items-center justify-center rounded-lg text-white"
+                className="flex size-9 items-center justify-center rounded-lg text-white shadow-md transition-transform duration-300 motion-safe:group-hover:scale-110"
                 style={{ backgroundColor: category.color }}
               >
                 <Icon className="size-4" />
@@ -138,7 +141,11 @@ export default function CategoriesPage() {
         </TabsList>
         <TabsContent value="EXPENSE" className="mt-4">
           {isLoading ? (
-            <Skeleton className="h-40 rounded-2xl" />
+            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+              {Array.from({ length: 6 }).map((_, i) => (
+                <Skeleton key={i} className="h-16 rounded-xl" />
+              ))}
+            </div>
           ) : (
             <CategoryGrid
               categories={expenseCategories}
@@ -152,7 +159,11 @@ export default function CategoriesPage() {
         </TabsContent>
         <TabsContent value="INCOME" className="mt-4">
           {isLoading ? (
-            <Skeleton className="h-40 rounded-2xl" />
+            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+              {Array.from({ length: 6 }).map((_, i) => (
+                <Skeleton key={i} className="h-16 rounded-xl" />
+              ))}
+            </div>
           ) : (
             <CategoryGrid
               categories={incomeCategories}

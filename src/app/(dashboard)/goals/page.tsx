@@ -2,7 +2,7 @@
 
 import * as React from "react"
 import { toast } from "sonner"
-import { Plus, Pencil, Trash2, MoreHorizontal } from "lucide-react"
+import { Plus, Pencil, Trash2, MoreHorizontal, Target } from "lucide-react"
 import type { Goal } from "@prisma/client"
 
 import { useGoals } from "@/hooks/use-goals"
@@ -21,6 +21,7 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { GoalFormDialog } from "@/components/goals/goal-form-dialog"
 import { ConfirmDialog } from "@/components/confirm-dialog"
+import { EmptyState } from "@/components/empty-state"
 
 export default function GoalsPage() {
   const { goals, isLoading, mutate } = useGoals()
@@ -76,13 +77,24 @@ export default function GoalsPage() {
           ))}
         </div>
       ) : goals.length === 0 ? (
-        <div className="glass rounded-2xl p-10 text-center">
-          <p className="text-muted-foreground">
-            No goals yet. Create one to start saving toward something.
-          </p>
-        </div>
+        <EmptyState
+          icon={Target}
+          title="No goals yet"
+          description="Whether it's an emergency fund or a dream vacation, set a target and watch your savings grow."
+          action={
+            <Button
+              onClick={() => {
+                setEditingGoal(undefined)
+                setFormOpen(true)
+              }}
+            >
+              <Plus className="size-4" />
+              Create your first goal
+            </Button>
+          }
+        />
       ) : (
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="stagger-children grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {goals.map((goal) => {
             const Icon = getIcon(goal.icon)
             const target = Number(goal.targetAmount)
@@ -90,11 +102,11 @@ export default function GoalsPage() {
             const percent = target > 0 ? Math.min(100, Math.round((current / target) * 100)) : 0
 
             return (
-              <div key={goal.id} className="glass rounded-2xl p-5">
+              <div key={goal.id} className="glass hover-lift group rounded-2xl p-5">
                 <div className="flex items-start justify-between">
                   <div className="flex items-center gap-3">
                     <span
-                      className="flex size-10 items-center justify-center rounded-xl text-white"
+                      className="flex size-10 items-center justify-center rounded-xl text-white shadow-md transition-transform duration-300 motion-safe:group-hover:scale-110"
                       style={{ backgroundColor: goal.color }}
                     >
                       <Icon className="size-5" />

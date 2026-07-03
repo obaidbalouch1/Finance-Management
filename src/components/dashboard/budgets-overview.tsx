@@ -43,9 +43,15 @@ export function BudgetsOverview({
       </div>
 
       {budgets.length === 0 ? (
-        <p className="text-muted-foreground py-6 text-center text-sm">
-          No budgets set up yet.
-        </p>
+        <div className="flex flex-col items-center py-8 text-center">
+          <span className="bg-muted flex size-11 items-center justify-center rounded-full">
+            <PiggyBank className="text-muted-foreground size-5" />
+          </span>
+          <p className="mt-3 text-sm font-medium">No budgets set up yet</p>
+          <p className="text-muted-foreground mt-0.5 text-xs">
+            Create a budget to track spending against your limits.
+          </p>
+        </div>
       ) : (
         <div className="space-y-4">
           {budgets.slice(0, 5).map((budget) => (

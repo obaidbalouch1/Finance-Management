@@ -52,9 +52,15 @@ export function RecentTransactions({
       </div>
 
       {transactions.length === 0 ? (
-        <p className="text-muted-foreground py-6 text-center text-sm">
-          No transactions yet.
-        </p>
+        <div className="flex flex-col items-center py-8 text-center">
+          <span className="bg-muted flex size-11 items-center justify-center rounded-full">
+            <Receipt className="text-muted-foreground size-5" />
+          </span>
+          <p className="mt-3 text-sm font-medium">No transactions yet</p>
+          <p className="text-muted-foreground mt-0.5 text-xs">
+            Your latest activity will show up here.
+          </p>
+        </div>
       ) : (
         <div className="divide-y">
           {transactions.map((transaction) => {

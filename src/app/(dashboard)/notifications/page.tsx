@@ -19,6 +19,7 @@ import { fetcher } from "@/lib/fetcher"
 import { cn } from "@/lib/utils"
 import { PageHeader } from "@/components/dashboard/page-header"
 import { Button } from "@/components/ui/button"
+import { EmptyState } from "@/components/empty-state"
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Skeleton } from "@/components/ui/skeleton"
 
@@ -98,14 +99,17 @@ export default function NotificationsPage() {
           ))}
         </div>
       ) : !data?.notifications.length ? (
-        <div className="glass rounded-2xl p-10 text-center">
-          <Bell className="text-muted-foreground mx-auto mb-3 size-8" />
-          <p className="text-muted-foreground">
-            {filter === "unread" ? "No unread notifications." : "No notifications yet."}
-          </p>
-        </div>
+        <EmptyState
+          icon={Bell}
+          title={filter === "unread" ? "All caught up!" : "No notifications yet"}
+          description={
+            filter === "unread"
+              ? "You've read everything. New alerts about budgets, bills, and goals will appear here."
+              : "Alerts about budgets, bills, and goals will show up here as they happen."
+          }
+        />
       ) : (
-        <div className="space-y-2">
+        <div className="stagger-children space-y-2">
           {data.notifications.map((notification) => {
             const Icon = TYPE_ICON[notification.type] ?? Info
             const content = (

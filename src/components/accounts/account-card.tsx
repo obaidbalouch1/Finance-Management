@@ -28,11 +28,11 @@ export function AccountCard({
   const balance = Number(account.balance)
 
   return (
-    <div className="glass rounded-2xl p-5">
+    <div className="glass hover-lift group rounded-2xl p-5">
       <div className="flex items-start justify-between">
         <div className="flex items-center gap-3">
           <span
-            className="flex size-10 items-center justify-center rounded-xl text-white"
+            className="flex size-10 items-center justify-center rounded-xl text-white shadow-md transition-transform duration-300 motion-safe:group-hover:scale-110"
             style={{ backgroundColor: account.color }}
           >
             <Icon className="size-5" />

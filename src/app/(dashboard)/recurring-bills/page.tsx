@@ -2,7 +2,7 @@
 
 import * as React from "react"
 import { toast } from "sonner"
-import { Plus, Pencil, Trash2, MoreHorizontal, CheckCircle2 } from "lucide-react"
+import { Plus, Pencil, Trash2, MoreHorizontal, CheckCircle2, CalendarClock, Loader2 } from "lucide-react"
 
 import {
   useRecurringBills,
@@ -21,6 +21,7 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { RecurringBillFormDialog } from "@/components/recurring-bills/recurring-bill-form-dialog"
 import { ConfirmDialog } from "@/components/confirm-dialog"
+import { EmptyState } from "@/components/empty-state"
 
 function isDueSoon(date: Date | string) {
   const due = new Date(date)
@@ -104,23 +105,33 @@ export default function RecurringBillsPage() {
           ))}
         </div>
       ) : bills.length === 0 ? (
-        <div className="glass rounded-2xl p-10 text-center">
-          <p className="text-muted-foreground">
-            No recurring bills yet. Add subscriptions or regular payments to
-            track.
-          </p>
-        </div>
+        <EmptyState
+          icon={CalendarClock}
+          title="No recurring bills yet"
+          description="Track subscriptions, rent, and utilities so you never miss a due date."
+          action={
+            <Button
+              onClick={() => {
+                setEditingBill(undefined)
+                setFormOpen(true)
+              }}
+            >
+              <Plus className="size-4" />
+              Add your first bill
+            </Button>
+          }
+        />
       ) : (
-        <div className="space-y-3">
+        <div className="stagger-children space-y-3">
           {bills.map((bill) => {
             const dueSoon = isDueSoon(bill.nextDueDate)
             return (
               <div
                 key={bill.id}
-                className="glass flex items-center justify-between rounded-2xl p-4"
+                className="glass hover-lift flex flex-col gap-3 rounded-2xl p-4 sm:flex-row sm:items-center sm:justify-between"
               >
                 <div className="min-w-0 flex-1">
-                  <div className="flex items-center gap-2">
+                  <div className="flex flex-wrap items-center gap-2">
                     <p className="font-medium">{bill.name}</p>
                     {!bill.isActive && (
                       <Badge variant="secondary">Paused</Badge>
@@ -140,14 +151,18 @@ export default function RecurringBillsPage() {
                     {formatDate(bill.nextDueDate)} · {bill.account.name}
                   </p>
                 </div>
-                <div className="flex items-center gap-1">
+                <div className="flex shrink-0 items-center gap-1">
                   <Button
                     variant="outline"
                     size="sm"
                     disabled={payingId === bill.id}
                     onClick={() => handleMarkPaid(bill)}
                   >
-                    <CheckCircle2 className="size-3.5" />
+                    {payingId === bill.id ? (
+                      <Loader2 className="size-3.5 animate-spin" />
+                    ) : (
+                      <CheckCircle2 className="size-3.5" />
+                    )}
                     Mark paid
                   </Button>
                   <DropdownMenu>

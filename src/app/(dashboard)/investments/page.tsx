@@ -2,7 +2,7 @@
 
 import * as React from "react"
 import { toast } from "sonner"
-import { Plus, Pencil, Trash2, MoreHorizontal, TrendingUp, TrendingDown } from "lucide-react"
+import { Plus, Pencil, Trash2, MoreHorizontal, TrendingUp, TrendingDown, LineChart } from "lucide-react"
 
 import { useInvestments, type InvestmentWithRelations } from "@/hooks/use-investments"
 import { formatCurrency, toTitleCase } from "@/lib/format"
@@ -19,6 +19,7 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { InvestmentFormDialog } from "@/components/investments/investment-form-dialog"
 import { ConfirmDialog } from "@/components/confirm-dialog"
+import { EmptyState } from "@/components/empty-state"
 
 export default function InvestmentsPage() {
   const { investments, isLoading, mutate } = useInvestments()
@@ -78,7 +79,7 @@ export default function InvestmentsPage() {
         }
       />
 
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
+      <div className="stagger-children grid grid-cols-1 gap-4 sm:grid-cols-3">
         <StatCard
           label="Portfolio value"
           value={formatCurrency(totalValue, "PKR")}
@@ -107,13 +108,24 @@ export default function InvestmentsPage() {
           ))}
         </div>
       ) : investments.length === 0 ? (
-        <div className="glass rounded-2xl p-10 text-center">
-          <p className="text-muted-foreground">
-            No investments yet. Add your first holding to track performance.
-          </p>
-        </div>
+        <EmptyState
+          icon={LineChart}
+          title="No investments yet"
+          description="Add stocks, funds, crypto, or any holding to see your portfolio's performance at a glance."
+          action={
+            <Button
+              onClick={() => {
+                setEditingInvestment(undefined)
+                setFormOpen(true)
+              }}
+            >
+              <Plus className="size-4" />
+              Add your first investment
+            </Button>
+          }
+        />
       ) : (
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="stagger-children grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {investments.map((investment) => {
             const value = Number(investment.quantity) * Number(investment.currentPrice)
             const cost = Number(investment.quantity) * Number(investment.purchasePrice)
@@ -121,7 +133,7 @@ export default function InvestmentsPage() {
             const gainPercent = cost > 0 ? (gain / cost) * 100 : 0
 
             return (
-              <div key={investment.id} className="glass rounded-2xl p-5">
+              <div key={investment.id} className="glass hover-lift rounded-2xl p-5">
                 <div className="flex items-start justify-between">
                   <div>
                     <p className="font-medium">{investment.name}</p>

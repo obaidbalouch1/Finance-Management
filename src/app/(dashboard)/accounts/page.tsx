@@ -2,7 +2,7 @@
 
 import * as React from "react"
 import { toast } from "sonner"
-import { Plus, ArrowLeftRight } from "lucide-react"
+import { Plus, ArrowLeftRight, Wallet } from "lucide-react"
 import type { FinancialAccount } from "@prisma/client"
 
 import { useAccounts } from "@/hooks/use-accounts"
@@ -12,6 +12,7 @@ import { AccountCard } from "@/components/accounts/account-card"
 import { AccountFormDialog } from "@/components/accounts/account-form-dialog"
 import { TransferDialog } from "@/components/accounts/transfer-dialog"
 import { ConfirmDialog } from "@/components/confirm-dialog"
+import { EmptyState } from "@/components/empty-state"
 import { Skeleton } from "@/components/ui/skeleton"
 
 export default function AccountsPage() {
@@ -92,13 +93,24 @@ export default function AccountsPage() {
           ))}
         </div>
       ) : accounts.length === 0 ? (
-        <div className="glass rounded-2xl p-10 text-center">
-          <p className="text-muted-foreground">
-            No accounts yet. Add your first account to get started.
-          </p>
-        </div>
+        <EmptyState
+          icon={Wallet}
+          title="No accounts yet"
+          description="Add your bank accounts, cards, and wallets to start tracking your money in one place."
+          action={
+            <Button
+              onClick={() => {
+                setEditingAccount(undefined)
+                setFormOpen(true)
+              }}
+            >
+              <Plus className="size-4" />
+              Add your first account
+            </Button>
+          }
+        />
       ) : (
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="stagger-children grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {accounts.map((account) => (
             <AccountCard
               key={account.id}

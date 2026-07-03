@@ -2,7 +2,7 @@
 
 import * as React from "react"
 import { toast } from "sonner"
-import { Plus, Pencil, Trash2, MoreHorizontal } from "lucide-react"
+import { Plus, Pencil, Trash2, MoreHorizontal, PiggyBank } from "lucide-react"
 
 import { useBudgets, type BudgetWithSpent } from "@/hooks/use-budgets"
 import { formatCurrency, toTitleCase } from "@/lib/format"
@@ -20,6 +20,7 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { BudgetFormDialog } from "@/components/budgets/budget-form-dialog"
 import { ConfirmDialog } from "@/components/confirm-dialog"
+import { EmptyState } from "@/components/empty-state"
 
 export default function BudgetsPage() {
   const { budgets, isLoading, mutate } = useBudgets()
@@ -75,22 +76,33 @@ export default function BudgetsPage() {
           ))}
         </div>
       ) : budgets.length === 0 ? (
-        <div className="glass rounded-2xl p-10 text-center">
-          <p className="text-muted-foreground">
-            No budgets yet. Create one to start tracking your spending limits.
-          </p>
-        </div>
+        <EmptyState
+          icon={PiggyBank}
+          title="No budgets yet"
+          description="Set monthly spending limits per category and we'll track your progress automatically."
+          action={
+            <Button
+              onClick={() => {
+                setEditingBudget(undefined)
+                setFormOpen(true)
+              }}
+            >
+              <Plus className="size-4" />
+              Create your first budget
+            </Button>
+          }
+        />
       ) : (
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="stagger-children grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {budgets.map((budget) => {
             const Icon = getIcon(budget.category.icon)
             const isOver = budget.spent > budget.amount
             return (
-              <div key={budget.id} className="glass rounded-2xl p-5">
+              <div key={budget.id} className="glass hover-lift group rounded-2xl p-5">
                 <div className="flex items-start justify-between">
                   <div className="flex items-center gap-3">
                     <span
-                      className="flex size-9 items-center justify-center rounded-lg text-white"
+                      className="flex size-9 items-center justify-center rounded-lg text-white shadow-md transition-transform duration-300 motion-safe:group-hover:scale-110"
                       style={{ backgroundColor: budget.category.color }}
                     >
                       <Icon className="size-4" />

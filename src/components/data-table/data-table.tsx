@@ -9,9 +9,10 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table"
-import { ArrowDown, ArrowUp, ArrowUpDown, ChevronLeft, ChevronRight } from "lucide-react"
+import { ArrowDown, ArrowUp, ArrowUpDown, ChevronLeft, ChevronRight, Inbox } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
+import { Skeleton } from "@/components/ui/skeleton"
 import {
   Table,
   TableBody,
@@ -89,7 +90,7 @@ export function DataTable<TData, TValue>({
 
   return (
     <div className="space-y-3">
-      <div className="overflow-hidden rounded-xl border">
+      <div className="glass overflow-hidden rounded-xl">
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
@@ -110,10 +111,13 @@ export function DataTable<TData, TValue>({
           <TableBody>
             {isLoading ? (
               Array.from({ length: 6 }).map((_, i) => (
-                <TableRow key={i}>
+                <TableRow key={i} className="hover:bg-transparent">
                   {columns.map((_, j) => (
                     <TableCell key={j}>
-                      <div className="bg-muted h-4 w-full max-w-32 animate-pulse rounded" />
+                      <Skeleton
+                        className="h-4"
+                        style={{ width: `${[85, 60, 75, 50, 70, 65][(i + j) % 6]}%`, maxWidth: "8rem" }}
+                      />
                     </TableCell>
                   ))}
                 </TableRow>
@@ -133,12 +137,14 @@ export function DataTable<TData, TValue>({
                 </TableRow>
               ))
             ) : (
-              <TableRow>
-                <TableCell
-                  colSpan={columns.length}
-                  className="text-muted-foreground h-32 text-center"
-                >
-                  {emptyMessage}
+              <TableRow className="hover:bg-transparent">
+                <TableCell colSpan={columns.length} className="h-40 text-center">
+                  <div className="animate-fade-up flex flex-col items-center gap-2">
+                    <span className="bg-muted flex size-11 items-center justify-center rounded-full">
+                      <Inbox className="text-muted-foreground size-5" />
+                    </span>
+                    <p className="text-muted-foreground text-sm">{emptyMessage}</p>
+                  </div>
                 </TableCell>
               </TableRow>
             )}

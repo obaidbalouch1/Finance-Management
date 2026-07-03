@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { Plus, Trash2, Edit, Calendar } from "lucide-react"
+import { Plus, Trash2, Edit, Calendar, ReceiptText } from "lucide-react"
 import { toast } from "sonner"
 import { Button } from "@/components/ui/button"
 import {
@@ -29,6 +29,7 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import { CURRENCIES } from "@/lib/constants"
+import { Skeleton } from "@/components/ui/skeleton"
 
 type Spending = {
   id: string
@@ -263,17 +264,29 @@ export default function SpendingPage() {
         </CardHeader>
         <CardContent>
           {loading ? (
-            <p className="text-muted-foreground text-center py-8">Loading...</p>
-          ) : spendings.length === 0 ? (
-            <p className="text-muted-foreground text-center py-8">
-              No spendings recorded for this month
-            </p>
-          ) : (
             <div className="space-y-3">
+              {Array.from({ length: 3 }).map((_, i) => (
+                <Skeleton key={i} className="h-[4.5rem] rounded-lg" />
+              ))}
+            </div>
+          ) : spendings.length === 0 ? (
+            <div className="animate-fade-up flex flex-col items-center py-10 text-center">
+              <span className="bg-muted flex size-11 items-center justify-center rounded-full">
+                <ReceiptText className="text-muted-foreground size-5" />
+              </span>
+              <p className="mt-3 text-sm font-medium">
+                Nothing recorded this month
+              </p>
+              <p className="text-muted-foreground mt-0.5 text-xs">
+                Add a spending entry and it will show up here.
+              </p>
+            </div>
+          ) : (
+            <div className="stagger-children space-y-3">
               {spendings.map((spending) => (
                 <div
                   key={spending.id}
-                  className="flex items-center justify-between p-4 border rounded-lg hover:bg-accent transition-colors"
+                  className="glass hover-lift flex flex-wrap items-center justify-between gap-3 rounded-lg p-4"
                 >
                   <div className="flex-1">
                     <div className="font-medium">{spending.description}</div>

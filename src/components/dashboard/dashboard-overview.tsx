@@ -48,7 +48,7 @@ export function DashboardOverview({ currency }: { currency: string }) {
     <div className="space-y-6">
       <QuickAddExpense />
 
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+      <div className="stagger-children grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         <StatCard
           label="Total balance"
           value={formatCurrency(data.totalBalance, currency)}
@@ -92,7 +92,7 @@ export function DashboardOverview({ currency }: { currency: string }) {
         />
       </div>
 
-      <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
+      <div className="stagger-children grid grid-cols-1 gap-4 lg:grid-cols-3">
         <div className="glass rounded-2xl p-5 lg:col-span-2">
           <h3 className="mb-4 font-medium">Cash flow (last 6 months)</h3>
           <CashFlowChart data={data.cashFlowTrend} />
@@ -100,7 +100,7 @@ export function DashboardOverview({ currency }: { currency: string }) {
         <FinancialHealthCard health={data.financialHealth} />
       </div>
 
-      <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
+      <div className="stagger-children grid grid-cols-1 gap-4 lg:grid-cols-2">
         <BudgetsOverview budgets={data.budgets} currency={currency} />
         <RecentTransactions transactions={data.recentTransactions} />
       </div>
