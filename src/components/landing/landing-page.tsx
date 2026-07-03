@@ -217,7 +217,7 @@ function FloatingChip({
   const reduce = useReducedMotion()
   return (
     <motion.div
-      className={`glass absolute z-10 hidden items-center gap-2 rounded-xl px-3 py-2 text-xs font-medium shadow-xl md:flex ${className ?? ""}`}
+      className={`liquid-glass absolute z-10 hidden items-center gap-2 rounded-xl px-3 py-2 text-xs font-medium shadow-xl md:flex ${className ?? ""}`}
       style={{ transform: `translateZ(${depth}px)`, transformStyle: "preserve-3d" }}
       initial={{ opacity: 0, y: 16, scale: 0.9 }}
       animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -275,7 +275,7 @@ function DashboardMockup({
           rotateY: reduce ? 0 : rotateY,
           transformStyle: "preserve-3d",
         }}
-        className="glass-panel relative rounded-2xl p-3 shadow-2xl shadow-primary/10 sm:p-4"
+        className="liquid-glass glass-sheen relative rounded-2xl p-3 shadow-2xl shadow-primary/10 sm:p-4"
       >
         {/* glare overlay */}
         <motion.div
@@ -452,7 +452,7 @@ function FeatureCard({
       animate={inView ? { opacity: 1, y: 0 } : undefined}
       transition={{ delay: index * 0.1, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
       whileHover={{ y: -6 }}
-      className="group bg-card/50 relative flex flex-col items-start gap-3 overflow-hidden rounded-2xl border border-border/60 p-6 text-left backdrop-blur transition-shadow hover:shadow-xl hover:shadow-primary/10"
+      className="group liquid-glass relative flex flex-col items-start gap-3 overflow-hidden rounded-2xl p-6 text-left transition-shadow hover:shadow-xl hover:shadow-primary/10"
     >
       {/* spotlight */}
       <div
@@ -533,29 +533,35 @@ export function LandingPage() {
         initial={{ opacity: 0, y: -24 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-        className="mx-auto flex max-w-6xl items-center justify-between px-6 py-6"
+        className="sticky top-3 z-40 mx-auto mt-3 max-w-6xl px-4 sm:top-4 sm:mt-4 sm:px-6"
       >
-        <div className="flex items-center gap-2 text-lg font-semibold tracking-tight">
-          <motion.span
-            whileHover={{ rotate: -8, scale: 1.08 }}
-            transition={{ type: "spring", stiffness: 300, damping: 15 }}
-            className="flex size-9 items-center justify-center rounded-xl bg-primary text-primary-foreground shadow-lg shadow-primary/25"
-          >
-            <Wallet className="size-5" />
-          </motion.span>
-          Finance Manager
-        </div>
-        <div className="flex items-center gap-2">
-          <Button
-            variant="ghost"
-            nativeButton={false}
-            render={<Link href="/login" />}
-          >
-            Sign in
-          </Button>
-          <Button nativeButton={false} render={<Link href="/register" />}>
-            Get started <ArrowRight className="size-4" />
-          </Button>
+        <div className="liquid-glass flex items-center justify-between rounded-2xl px-4 py-2.5 sm:px-5 sm:py-3">
+          <div className="flex items-center gap-2 text-lg font-semibold tracking-tight">
+            <motion.span
+              whileHover={{ rotate: -8, scale: 1.08 }}
+              transition={{ type: "spring", stiffness: 300, damping: 15 }}
+              className="flex size-9 items-center justify-center rounded-xl bg-primary text-primary-foreground shadow-lg shadow-primary/25"
+            >
+              <Wallet className="size-5" />
+            </motion.span>
+            Finance Manager
+          </div>
+          <div className="flex items-center gap-2">
+            <Button
+              variant="ghost"
+              nativeButton={false}
+              render={<Link href="/login" />}
+            >
+              Sign in
+            </Button>
+            <Button
+              className="rounded-full"
+              nativeButton={false}
+              render={<Link href="/register" />}
+            >
+              Get started <ArrowRight className="size-4" />
+            </Button>
+          </div>
         </div>
       </motion.header>
 
@@ -565,7 +571,7 @@ export function LandingPage() {
           initial={{ opacity: 0, y: 16, scale: 0.9 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
           transition={{ delay: 0.1, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-          className="border-border bg-card/60 text-muted-foreground mx-auto mb-6 inline-flex items-center gap-1.5 rounded-full border px-3.5 py-1.5 text-xs backdrop-blur"
+          className="liquid-glass text-muted-foreground mx-auto mb-6 inline-flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-xs"
         >
           <Sparkles className="size-3.5 text-primary" />
           Real-time financial insights
@@ -634,7 +640,7 @@ export function LandingPage() {
           <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}>
             <Button
               size="lg"
-              className="h-11 px-6 shadow-lg shadow-primary/30"
+              className="h-11 rounded-full px-6 shadow-lg shadow-primary/30"
               nativeButton={false}
               render={<Link href="/register" />}
             >
@@ -645,7 +651,7 @@ export function LandingPage() {
             <Button
               size="lg"
               variant="outline"
-              className="h-11 px-6 backdrop-blur"
+              className="liquid-glass h-11 rounded-full px-6"
               nativeButton={false}
               render={<Link href="/login" />}
             >
@@ -691,7 +697,7 @@ export function LandingPage() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-60px" }}
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-          className="glass-panel relative mx-auto mt-24 max-w-3xl overflow-hidden rounded-3xl px-8 py-14"
+          className="liquid-glass glass-sheen relative mx-auto mt-24 max-w-3xl rounded-3xl px-8 py-14"
         >
           <div className="absolute -top-24 left-1/2 size-72 -translate-x-1/2 rounded-full bg-primary/20 blur-3xl" />
           <Target className="mx-auto mb-4 size-10 text-primary" />
@@ -709,7 +715,7 @@ export function LandingPage() {
           >
             <Button
               size="lg"
-              className="h-11 px-8 shadow-lg shadow-primary/30"
+              className="h-11 rounded-full px-8 shadow-lg shadow-primary/30"
               nativeButton={false}
               render={<Link href="/register" />}
             >

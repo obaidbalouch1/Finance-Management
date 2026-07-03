@@ -202,6 +202,63 @@
   .glass-panel {
     @apply bg-gradient-to-br from-card/80 to-card/40 backdrop-blur-2xl backdrop-saturate-150 border border-border/50;
   }
+  /* Liquid glass — refractive gradient surface with specular edges */
+  .liquid-glass {
+    @apply relative border backdrop-blur-2xl backdrop-saturate-200;
+    border-color: oklch(1 0 0 / 0.4);
+    background: linear-gradient(
+      135deg,
+      oklch(1 0 0 / 0.55),
+      oklch(1 0 0 / 0.22) 40%,
+      oklch(1 0 0 / 0.08) 62%,
+      oklch(1 0 0 / 0.32)
+    );
+    box-shadow:
+      inset 0 1px 1px oklch(1 0 0 / 0.85),
+      inset 0 -1px 1px oklch(1 0 0 / 0.25),
+      inset 1px 0 0.5px -0.5px oklch(1 0 0 / 0.5),
+      0 12px 40px -12px oklch(0.2 0.05 264 / 0.3);
+  }
+  .dark .liquid-glass {
+    border-color: oklch(1 0 0 / 0.14);
+    background: linear-gradient(
+      135deg,
+      oklch(0.34 0.03 264 / 0.55),
+      oklch(0.22 0.025 264 / 0.4) 45%,
+      oklch(0.18 0.02 264 / 0.35) 70%,
+      oklch(0.3 0.035 264 / 0.45)
+    );
+    box-shadow:
+      inset 0 1px 1px oklch(1 0 0 / 0.18),
+      inset 0 -1px 1px oklch(1 0 0 / 0.05),
+      0 12px 40px -12px oklch(0 0 0 / 0.6);
+  }
+  /* Slow specular sweep across a liquid-glass surface */
+  .glass-sheen {
+    overflow: hidden;
+  }
+  .glass-sheen::after {
+    content: "";
+    position: absolute;
+    top: -20%;
+    bottom: -20%;
+    left: -60%;
+    width: 45%;
+    pointer-events: none;
+    background: linear-gradient(
+      105deg,
+      transparent,
+      oklch(1 0 0 / 0.14) 40%,
+      oklch(1 0 0 / 0.32) 50%,
+      oklch(1 0 0 / 0.14) 60%,
+      transparent
+    );
+    transform: skewX(-18deg);
+    animation: sheen 6s ease-in-out infinite;
+  }
+  .dark .glass-sheen::after {
+    opacity: 0.45;
+  }
   /* Hover lift for interactive cards — pairs with .glass */
   .hover-lift {
     @apply transition-[transform,box-shadow,border-color] duration-300 ease-out motion-safe:hover:-translate-y-0.5 hover:border-primary/25 hover:shadow-[inset_0_1px_0_0_rgba(255,255,255,0.5),0_16px_40px_-12px_rgba(0,0,0,0.18)] dark:hover:shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08),0_16px_40px_-12px_rgba(0,0,0,0.55)];
@@ -280,6 +337,16 @@
   }
 }
 
+@keyframes sheen {
+  0% {
+    left: -60%;
+  }
+  60%,
+  100% {
+    left: 140%;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .animate-fade-up,
   .animate-scale-in,
@@ -287,5 +354,9 @@
   .animate-float-delayed,
   .stagger-children > * {
     animation: none;
+  }
+  .glass-sheen::after {
+    animation: none;
+    opacity: 0;
   }
 }
