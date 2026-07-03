@@ -36,7 +36,7 @@ export async function GET(request: Request) {
 
   const rows = data.categoryBreakdown.map((c) => ({
     category: c.name,
-    amount: formatCurrency(c.value, "USD"),
+    amount: formatCurrency(c.value, "PKR"),
     percentOfTotal:
       data.totalExpenses > 0
         ? `${Math.round((c.value / data.totalExpenses) * 1000) / 10}%`
@@ -45,9 +45,9 @@ export async function GET(request: Request) {
 
   const subtitle = `${formatDate(from)} – ${formatDate(to)}`
   const summary = [
-    { label: "Total income", value: formatCurrency(data.totalIncome, "USD") },
-    { label: "Total expenses", value: formatCurrency(data.totalExpenses, "USD") },
-    { label: "Net cash flow", value: formatCurrency(data.netCashFlow, "USD") },
+    { label: "Total income", value: formatCurrency(data.totalIncome, "PKR") },
+    { label: "Total expenses", value: formatCurrency(data.totalExpenses, "PKR") },
+    { label: "Net cash flow", value: formatCurrency(data.netCashFlow, "PKR") },
   ]
   const filenameBase = `financial-summary-${from.toISOString().slice(0, 10)}-to-${to.toISOString().slice(0, 10)}`
 

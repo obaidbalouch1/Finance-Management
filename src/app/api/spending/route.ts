@@ -7,7 +7,7 @@ import { handleApiError, jsonError } from "@/lib/api-helpers"
 const spendingSchema = z.object({
   description: z.string().min(1, "Description is required"),
   amount: z.number().positive("Amount must be positive"),
-  currency: z.string().default("USD"),
+  currency: z.string().default("PKR"),
   date: z.string().optional(),
 })
 

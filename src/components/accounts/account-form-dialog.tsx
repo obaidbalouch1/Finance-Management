@@ -66,7 +66,7 @@ export function AccountFormDialog({
     defaultValues: {
       name: account?.name ?? "",
       type: account?.type ?? "CHECKING",
-      currency: account?.currency ?? "USD",
+      currency: "PKR",
       balance: account ? Number(account.balance) : 0,
       color: account?.color ?? "#6366f1",
       icon: account?.icon ?? "wallet",
@@ -78,7 +78,7 @@ export function AccountFormDialog({
       form.reset({
         name: account?.name ?? "",
         type: account?.type ?? "CHECKING",
-        currency: account?.currency ?? "USD",
+        currency: "PKR",
         balance: account ? Number(account.balance) : 0,
         color: account?.color ?? "#6366f1",
         icon: account?.icon ?? "wallet",

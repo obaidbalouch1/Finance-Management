@@ -40,19 +40,19 @@ export default function AnalyticsPage() {
           <>
             <StatCard
               label="Total income"
-              value={formatCurrency(data.totalIncome, "USD")}
+              value={formatCurrency(data.totalIncome, "PKR")}
               icon={TrendingUp}
               accent="success"
             />
             <StatCard
               label="Total expenses"
-              value={formatCurrency(data.totalExpenses, "USD")}
+              value={formatCurrency(data.totalExpenses, "PKR")}
               icon={TrendingDown}
               accent="destructive"
             />
             <StatCard
               label="Net cash flow"
-              value={formatCurrency(data.netCashFlow, "USD")}
+              value={formatCurrency(data.netCashFlow, "PKR")}
               icon={ArrowLeftRight}
               accent={data.netCashFlow >= 0 ? "success" : "destructive"}
             />
@@ -61,7 +61,7 @@ export default function AnalyticsPage() {
               value={String(data.transactionCount)}
               icon={Receipt}
               accent="primary"
-              subtext={`Avg ${formatCurrency(data.averageTransaction, "USD")}`}
+              subtext={`Avg ${formatCurrency(data.averageTransaction, "PKR")}`}
             />
           </>
         )}

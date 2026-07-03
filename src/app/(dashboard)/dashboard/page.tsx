@@ -11,7 +11,7 @@ export default async function DashboardPage() {
         title="Overview"
         description="Your financial snapshot at a glance"
       />
-      <DashboardOverview currency={session?.user.baseCurrency ?? "USD"} />
+      <DashboardOverview currency={session?.user.baseCurrency ?? "PKR"} />
     </div>
   )
 }

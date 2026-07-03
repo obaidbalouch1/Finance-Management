@@ -1,6 +1,9 @@
+// The app displays every amount in Pakistani Rupees (PKR), regardless of the
+// currency code stored on the row — the `currency` parameter is kept so call
+// sites don't break, but it is intentionally ignored.
 export function formatCurrency(
   amount: number | string,
-  currency: string = "USD",
+  _currency: string = "PKR",
   options?: Intl.NumberFormatOptions
 ) {
   const value = typeof amount === "string" ? Number(amount) : amount
@@ -8,12 +11,13 @@ export function formatCurrency(
   try {
     return new Intl.NumberFormat("en-US", {
       style: "currency",
-      currency,
+      currency: "PKR",
+      currencyDisplay: "narrowSymbol",
       maximumFractionDigits: 2,
       ...options,
     }).format(value)
   } catch {
-    return `${value.toFixed(2)} ${currency}`
+    return `Rs ${value.toFixed(2)}`
   }
 }
 

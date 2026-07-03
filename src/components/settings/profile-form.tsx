@@ -40,7 +40,8 @@ export function ProfileForm({
     defaultValues: {
       name: user.name ?? "",
       image: user.image ?? "",
-      baseCurrency: user.baseCurrency,
+      // The app is PKR-only; older accounts may still have another code stored.
+      baseCurrency: "PKR",
     },
   })
 

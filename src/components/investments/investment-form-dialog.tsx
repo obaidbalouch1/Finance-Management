@@ -70,7 +70,7 @@ export function InvestmentFormDialog({
       quantity: investment ? Number(investment.quantity) : 1,
       purchasePrice: investment ? Number(investment.purchasePrice) : 0,
       currentPrice: investment ? Number(investment.currentPrice) : 0,
-      currency: investment?.currency ?? "USD",
+      currency: "PKR",
       purchaseDate: investment?.purchaseDate ? new Date(investment.purchaseDate) : new Date(),
       accountId: investment?.accountId ?? null,
     },
@@ -85,7 +85,7 @@ export function InvestmentFormDialog({
         quantity: investment ? Number(investment.quantity) : 1,
         purchasePrice: investment ? Number(investment.purchasePrice) : 0,
         currentPrice: investment ? Number(investment.currentPrice) : 0,
-        currency: investment?.currency ?? "USD",
+        currency: "PKR",
         purchaseDate: investment?.purchaseDate
           ? new Date(investment.purchaseDate)
           : new Date(),

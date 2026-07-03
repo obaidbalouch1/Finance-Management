@@ -7,21 +7,24 @@ import {
   toTitleCase,
 } from "./format"
 
+// Intl separates "Rs" from the number with a non-breaking space (U+00A0).
+const NBSP = " "
+
 describe("formatCurrency", () => {
-  it("formats a positive USD amount", () => {
-    expect(formatCurrency(1234.5, "USD")).toBe("$1,234.50")
+  it("formats a positive amount in PKR", () => {
+    expect(formatCurrency(1234.5, "PKR")).toBe(`Rs${NBSP}1,234.5`)
   })
 
   it("formats a negative amount with a minus sign", () => {
-    expect(formatCurrency(-42, "USD")).toBe("-$42.00")
+    expect(formatCurrency(-42, "PKR")).toBe(`-Rs${NBSP}42`)
   })
 
   it("accepts string input", () => {
-    expect(formatCurrency("99.99", "USD")).toBe("$99.99")
+    expect(formatCurrency("99.99", "PKR")).toBe(`Rs${NBSP}99.99`)
   })
 
-  it("falls back gracefully for an invalid currency code", () => {
-    expect(formatCurrency(10, "NOT_REAL")).toContain("10.00")
+  it("always renders PKR even when another currency code is passed", () => {
+    expect(formatCurrency(10, "USD")).toBe(`Rs${NBSP}10`)
   })
 })
 

@@ -307,7 +307,7 @@ function DashboardMockup({
             {
               label: "Total balance",
               value: 24563,
-              prefix: "$",
+              prefix: "Rs ",
               icon: Wallet,
               trend: "+12.4%",
               up: true,
@@ -315,7 +315,7 @@ function DashboardMockup({
             {
               label: "Income",
               value: 8420,
-              prefix: "$",
+              prefix: "Rs ",
               icon: ArrowUpRight,
               trend: "+8.1%",
               up: true,
@@ -323,7 +323,7 @@ function DashboardMockup({
             {
               label: "Expenses",
               value: 5180,
-              prefix: "$",
+              prefix: "Rs ",
               icon: ArrowDownRight,
               trend: "-3.2%",
               up: false,
@@ -393,7 +393,7 @@ function DashboardMockup({
           </span>
           <div>
             <div className="font-semibold">Goal reached</div>
-            <div className="text-muted-foreground text-[10px]">Vacation fund · $3,000</div>
+            <div className="text-muted-foreground text-[10px]">Vacation fund · Rs 300,000</div>
           </div>
         </FloatingChip>
 
@@ -402,7 +402,7 @@ function DashboardMockup({
             <TrendingUp className="size-3.5 text-primary" />
           </span>
           <div>
-            <div className="font-semibold">+$2,400</div>
+            <div className="font-semibold">+Rs 85,000</div>
             <div className="text-muted-foreground text-[10px]">Salary deposit</div>
           </div>
         </FloatingChip>

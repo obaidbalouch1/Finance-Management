@@ -14,7 +14,7 @@ import {
 
 export function CategoryPieChart({
   data,
-  currency = "USD",
+  currency = "PKR",
 }: {
   data: { name: string; value: number; color: string }[]
   currency?: string

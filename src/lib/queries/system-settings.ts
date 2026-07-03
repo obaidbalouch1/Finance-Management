@@ -3,7 +3,7 @@ import { db } from "@/lib/db"
 export const DEFAULT_SYSTEM_SETTINGS = {
   maintenanceMode: false,
   allowRegistration: true,
-  defaultCurrency: "USD",
+  defaultCurrency: "PKR",
   supportEmail: "support@example.com",
 }
 

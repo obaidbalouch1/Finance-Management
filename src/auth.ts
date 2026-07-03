@@ -88,7 +88,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         token.id = user.id as string
         token.role = (user as { role?: "ADMIN" | "USER" }).role ?? "USER"
         token.baseCurrency =
-          (user as { baseCurrency?: string }).baseCurrency ?? "USD"
+          (user as { baseCurrency?: string }).baseCurrency ?? "PKR"
       }
 
       if (trigger === "update" && session) {

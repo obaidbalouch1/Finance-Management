@@ -139,10 +139,10 @@ export default function BudgetsPage() {
                         isOver && "text-destructive"
                       )}
                     >
-                      {formatCurrency(budget.spent, "USD")}
+                      {formatCurrency(budget.spent, "PKR")}
                     </span>
                     <span className="text-muted-foreground text-sm">
-                      of {formatCurrency(budget.amount, "USD")}
+                      of {formatCurrency(budget.amount, "PKR")}
                     </span>
                   </div>
                   <Progress
@@ -153,8 +153,8 @@ export default function BudgetsPage() {
                   />
                   <p className="text-muted-foreground mt-1.5 text-xs">
                     {isOver
-                      ? `${formatCurrency(budget.spent - budget.amount, "USD")} over budget`
-                      : `${formatCurrency(budget.amount - budget.spent, "USD")} remaining`}
+                      ? `${formatCurrency(budget.spent - budget.amount, "PKR")} over budget`
+                      : `${formatCurrency(budget.amount - budget.spent, "PKR")} remaining`}
                   </p>
                 </div>
               </div>

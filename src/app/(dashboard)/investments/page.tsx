@@ -81,19 +81,19 @@ export default function InvestmentsPage() {
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
         <StatCard
           label="Portfolio value"
-          value={formatCurrency(totalValue, "USD")}
+          value={formatCurrency(totalValue, "PKR")}
           icon={TrendingUp}
           accent="primary"
         />
         <StatCard
           label="Total invested"
-          value={formatCurrency(totalCost, "USD")}
+          value={formatCurrency(totalCost, "PKR")}
           icon={TrendingUp}
           accent="primary"
         />
         <StatCard
           label="All-time gain"
-          value={formatCurrency(totalGain, "USD")}
+          value={formatCurrency(totalGain, "PKR")}
           icon={totalGain >= 0 ? TrendingUp : TrendingDown}
           accent={totalGain >= 0 ? "success" : "destructive"}
           trend={{ value: Math.round(totalGainPercent * 10) / 10 }}

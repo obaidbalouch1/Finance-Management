@@ -29,6 +29,7 @@ export const authConfig = {
         }
       }
 
+      
       const isProtectedRoute =
         pathname.startsWith("/dashboard") || pathname.startsWith("/admin")
       const isAdminRoute = pathname.startsWith("/admin")

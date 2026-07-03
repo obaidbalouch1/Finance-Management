@@ -48,15 +48,7 @@ export const ADMIN_NAV_ITEMS: NavItem[] = [
   { title: "Settings", href: "/admin/settings", icon: Settings },
 ]
 
+// The app is PKR-only: every amount is displayed in Pakistani Rupees.
 export const CURRENCIES = [
-  { code: "USD", symbol: "$", name: "US Dollar" },
-  { code: "EUR", symbol: "€", name: "Euro" },
-  { code: "GBP", symbol: "£", name: "British Pound" },
-  { code: "JPY", symbol: "¥", name: "Japanese Yen" },
-  { code: "CAD", symbol: "$", name: "Canadian Dollar" },
-  { code: "AUD", symbol: "$", name: "Australian Dollar" },
-  { code: "INR", symbol: "₹", name: "Indian Rupee" },
   { code: "PKR", symbol: "₨", name: "Pakistani Rupee" },
-  { code: "AED", symbol: "د.إ", name: "UAE Dirham" },
-  { code: "CNY", symbol: "¥", name: "Chinese Yuan" },
 ]

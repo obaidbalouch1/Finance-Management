@@ -61,7 +61,7 @@ export default function AdminOverviewPage() {
             />
             <StatCard
               label="30-day volume"
-              value={formatCurrency(data.volumeLast30Days, "USD")}
+              value={formatCurrency(data.volumeLast30Days, "PKR")}
               icon={TrendingUp}
               accent="success"
             />

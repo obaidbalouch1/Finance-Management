@@ -54,7 +54,7 @@ export default function SpendingPage() {
   const [formData, setFormData] = useState({
     description: "",
     amount: "",
-    currency: "USD",
+    currency: "PKR",
     date: new Date().toISOString().split("T")[0],
   })
 
@@ -166,7 +166,7 @@ export default function SpendingPage() {
     setFormData({
       description: "",
       amount: "",
-      currency: "USD",
+      currency: "PKR",
       date: new Date().toISOString().split("T")[0],
     })
   }
@@ -246,7 +246,10 @@ export default function SpendingPage() {
         </CardHeader>
         <CardContent>
           <div className="text-3xl font-bold">
-            ${total.toFixed(2)}
+            {spendings.length > 0
+              ? CURRENCIES.find((c) => c.code === spendings[0].currency)?.symbol || "₨"
+              : "₨"}
+            {total.toFixed(2)}
           </div>
         </CardContent>
       </Card>
@@ -282,7 +285,7 @@ export default function SpendingPage() {
                   <div className="flex items-center gap-4">
                     <div className="text-lg font-semibold">
                       {CURRENCIES.find((c) => c.code === spending.currency)
-                        ?.symbol || "$"}
+                        ?.symbol || "₨"}
                       {Number(spending.amount).toFixed(2)}
                     </div>
                     <div className="flex gap-2">
@@ -354,7 +357,7 @@ export default function SpendingPage() {
                 <Select
                   value={formData.currency}
                   onValueChange={(value) =>
-                    setFormData({ ...formData, currency: value || "USD" })
+                    setFormData({ ...formData, currency: value || "PKR" })
                   }
                 >
                   <SelectTrigger>
