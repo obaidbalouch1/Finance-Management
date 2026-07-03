@@ -196,18 +196,14 @@
 }
 
 @layer utilities {
-  .glass {
-    @apply bg-card/60 backdrop-blur-xl backdrop-saturate-150 border border-border/60 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.5),0_8px_32px_-8px_rgba(0,0,0,0.12)] dark:shadow-[inset_0_1px_0_0_rgba(255,255,255,0.06),0_8px_32px_-8px_rgba(0,0,0,0.4)];
-  }
-  .glass-panel {
-    @apply bg-gradient-to-br from-card/80 to-card/40 backdrop-blur-2xl backdrop-saturate-150 border border-border/50;
-  }
-  /* Liquid glass — refractive gradient surface with specular edges */
+  /* macOS-style liquid glass — the app-wide card material.
+     ~80% see-through: the frosted look comes from the backdrop blur
+     and saturation, not the fill. `.glass` and `.liquid-glass` are
+     the same material so every card in the app matches. */
+  .glass,
   .liquid-glass {
     @apply relative border backdrop-blur-2xl backdrop-saturate-200;
     border-color: oklch(1 0 0 / 0.4);
-    /* macOS-style liquid glass: ~80% see-through, the frosted look
-       comes from the backdrop blur, not the fill */
     background: linear-gradient(
       135deg,
       oklch(1 0 0 / 0.3),
@@ -221,6 +217,7 @@
       inset 1px 0 0.5px -0.5px oklch(1 0 0 / 0.5),
       0 12px 40px -12px oklch(0.2 0.05 264 / 0.3);
   }
+  .dark .glass,
   .dark .liquid-glass {
     border-color: oklch(1 0 0 / 0.14);
     background: linear-gradient(
@@ -234,6 +231,9 @@
       inset 0 1px 1px oklch(1 0 0 / 0.18),
       inset 0 -1px 1px oklch(1 0 0 / 0.05),
       0 12px 40px -12px oklch(0 0 0 / 0.6);
+  }
+  .glass-panel {
+    @apply bg-gradient-to-br from-card/80 to-card/40 backdrop-blur-2xl backdrop-saturate-150 border border-border/50;
   }
   /* Slow specular sweep across a liquid-glass surface */
   .glass-sheen {
