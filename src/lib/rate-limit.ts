@@ -34,3 +34,9 @@ export function checkRateLimit(
   existing.count += 1
   return { allowed: true, remaining: limit - existing.count }
 }
+
+// Clears the caller's bucket, e.g. after a successful login so legitimate
+// sign-ins never accumulate toward the brute-force lockout.
+export function clearRateLimit(request: Request, key: string): void {
+  buckets.delete(`${key}:${getClientIp(request)}`)
+}

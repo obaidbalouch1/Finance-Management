@@ -8,7 +8,7 @@ import { compare } from "bcryptjs"
 import { authConfig } from "@/auth.config"
 import { db } from "@/lib/db"
 import { loginSchema } from "@/lib/validations/auth"
-import { checkRateLimit } from "@/lib/rate-limit"
+import { checkRateLimit, clearRateLimit } from "@/lib/rate-limit"
 import { getSystemSettings } from "@/lib/queries/system-settings"
 
 const oauthProviders = []
@@ -18,6 +18,7 @@ if (process.env.AUTH_GOOGLE_ID && process.env.AUTH_GOOGLE_SECRET) {
     Google({
       clientId: process.env.AUTH_GOOGLE_ID,
       clientSecret: process.env.AUTH_GOOGLE_SECRET,
+      allowDangerousEmailAccountLinking: true,
     })
   )
 }
@@ -27,6 +28,18 @@ if (process.env.AUTH_GITHUB_ID && process.env.AUTH_GITHUB_SECRET) {
     GitHub({
       clientId: process.env.AUTH_GITHUB_ID,
       clientSecret: process.env.AUTH_GITHUB_SECRET,
+      allowDangerousEmailAccountLinking: true,
+      authorization: { params: { scope: "read:user user:email" } },
+      profile(profile) {
+        return {
+          id: profile.id.toString(),
+          name: profile.name ?? profile.login,
+          email:
+            profile.email ??
+            `${profile.id}+${profile.login}@users.noreply.github.com`,
+          image: profile.avatar_url,
+        }
+      },
     })
   )
 }
@@ -69,6 +82,8 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
           const settings = await getSystemSettings()
           if (settings.maintenanceMode) return null
         }
+
+        clearRateLimit(request, "login")
 
         return {
           id: user.id,
